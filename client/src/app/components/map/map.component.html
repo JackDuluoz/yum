@@ -1,0 +1,17 @@
+<div class="map">
+  <mat-sidenav-container>
+    <mat-sidenav mode="over" position="end" [opened]="showFilter"
+      ><app-filter></app-filter
+    ></mat-sidenav>
+    <mat-sidenav-content>
+      <google-map
+        *ngIf="showMap"
+        height="86vh"
+        width="100vw"
+        [options]="mapOptions"
+        (mapInitialized)="handleMapInitialized($event)"
+      ></google-map>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <section class="events" *ngIf="!showMap">Map Yum Components</section>
+</div>

@@ -1,0 +1,32 @@
+<mat-toolbar *ngIf="this.router.url === '/'">
+  <button mat-icon-button *ngIf="showMap" (click)="toggleMap()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="!showMap" (click)="toggleMap()">
+    <mat-icon>location_on</mat-icon>
+  </button>
+  <span>Yum</span>
+  <button mat-icon-button (click)="toggleFilter()">
+    <mat-icon>filter_list</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-toolbar *ngIf="this.router.url === '/myyums'">
+  <span>My Yums</span>
+</mat-toolbar>
+
+<mat-toolbar *ngIf="this.router.url === '/search'">
+  <span>Discover</span>
+</mat-toolbar>
+
+<mat-toolbar *ngIf="this.router.url === '/reviews'">
+  <span>Reviews</span>
+</mat-toolbar>
+
+<mat-toolbar *ngIf="this.router.url === '/user'">
+  <span>Account</span>
+  <div *ngIf="this.getName() !== null">
+    <span>{{getName()}}: </span>
+    <button id="logout" (click)="onLogout()">Logout</button>
+  </div>
+</mat-toolbar>
