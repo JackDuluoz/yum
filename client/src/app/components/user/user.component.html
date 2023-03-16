@@ -5,9 +5,9 @@
     <div class="login form">
       <header>Login</header>
         <form action="#">
-          <input type="text" name="email" placeholder="Enter your email" [(ngModel)]="credentials.email" required>
-          <input type="password" name="password" placeholder="Enter your password" [(ngModel)]="credentials.password" requried>
-          <input type="button" class="button" value="Login" (click)="onSubmit()">
+          <input type="text" placeholder="Email" name="email" [(ngModel)]="credentials.email" required>
+          <input type="password" placeholder="Password" name="password" [(ngModel)]="credentials.password" requried>
+          <input type="button" class="button" value="Login" (click)="onLogin()">
         </form>
         <div class="signup">
           <span class="signup">Don't have an account?
@@ -18,10 +18,10 @@
     <div class="registration form">
       <header>Signup</header>
       <form action="#">
-        <input type="text" placeholder="Enter your email" required>
-        <input type="password" placeholder="Create a password" requried>
-        <input type="password" placeholder="Confirm your password" required>
-        <input type="button" class="button" value="Signup">
+        <input type="text" placeholder="Username" name="username" [(ngModel)]="registration.username" required>
+        <input type="text" placeholder="Email" name="email" [(ngModel)]="registration.email" required>
+        <input type="password" placeholder="Password" name="password" [(ngModel)]="registration.password" requried>
+        <input type="button" class="button" value="Signup" (click)="onRegister()">
       </form>
       <div class="signup">
         <span class="signup">Already have an account?

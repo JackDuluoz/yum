@@ -12,11 +12,11 @@ export class DatabaseService {
     this.Root_URL = "http://localhost:3000/"
   }
 
-  getUsers() {
-    return this.http.get('http://localhost:3000/users').subscribe(
-      (data) => console.log(data)
-    )
-  }
+  // getUsers() {
+  //   return this.http.get('http://localhost:3000/users').subscribe(
+  //     (data) => console.log(data)
+  //   )
+  // }
 
   login(credentials: object) {
     let userObj: any;
@@ -26,10 +26,23 @@ export class DatabaseService {
         userObj = response
         if (userObj.user._id) {
           sessionStorage.setItem('userId', userObj.user._id)
-          sessionStorage.setItem('name', userObj.user.firstName)
+          sessionStorage.setItem('user', userObj.user.username)
         }
       }
     )
   }
 
+  register(registration: object) {
+    let userObj: any;
+    return this.http.post('http://localhost:3000/users/register', registration).subscribe(
+      (response) => {
+        console.log(response)
+        userObj = response
+        if (userObj.user._id) {
+          sessionStorage.setItem('userId', userObj.user._id)
+          sessionStorage.setItem('user', userObj.user.username)
+        }
+      }
+    )
+  }
 }

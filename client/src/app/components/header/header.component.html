@@ -25,8 +25,8 @@
 
 <mat-toolbar *ngIf="this.router.url === '/user'">
   <span>Account</span>
-  <div *ngIf="this.getName() !== null">
-    <span>{{getName()}}: </span>
+  <div *ngIf="this.getUser() !== null">
+    <span>{{getUser()}}: </span>
     <button id="logout" (click)="onLogout()">Logout</button>
   </div>
 </mat-toolbar>

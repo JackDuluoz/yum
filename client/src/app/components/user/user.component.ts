@@ -16,6 +16,12 @@ export class UserComponent implements OnInit {
     password: ""
   }
 
+  registration = {
+    username: "",
+    email: "",
+    password: ""
+  }
+
   constructor(private databaseService: DatabaseService) { }
 
   ngOnInit() {
@@ -25,10 +31,17 @@ export class UserComponent implements OnInit {
     return sessionStorage.getItem('userId');
   }
 
-  onSubmit() {
+  onLogin() {
     this.databaseService.login(this.credentials)
     this.credentials.email = ''
     this.credentials.password = ''
+  }
+
+  onRegister() {
+    this.databaseService.register(this.registration)
+    this.registration.username = ''
+    this.registration.email = ''
+    this.registration.password = ''
   }
 
 }

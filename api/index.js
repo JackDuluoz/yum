@@ -85,3 +85,35 @@ app.post('/users/login', (req, res) => {
         return res.status(200).send({ message: "Welcome back", user })     
     })
 })
+
+app.post('/users/register', (req, res) => {
+  const submittedUsername = req.body.username
+  const submittedEmail = req.body.email
+  const submittedPassword = req.body.password
+  if (!submittedUsername) {
+    return res.status(400).send({ message: "Username cannot be blank" })
+  }
+  if (!submittedEmail) {
+    return res.status(400).send({ message: "Email cannot be blank" })
+  }
+  if (!submittedPassword) {
+    return res.status(400).send({ message: "Password cannot be blank" })
+  }
+  db.collection('users')
+    .insertOne({ username: submittedUsername, email: submittedEmail, password: submittedPassword, isAdmin: false })
+    .then((response) => {
+      console.log(response)
+      db.collection('users')
+        .findOne({_id: response.insertedId})
+        .then((user) => {
+          console.log(user)
+          res.status(201).send({ message: "New user added", user })
+        })
+        .catch((error) => {
+          res.status(500).send({ message: "Find error", error })
+        })
+    })
+    .catch((error) => {
+      res.status(500).send({ message: "Insert error", error })
+    })     
+})

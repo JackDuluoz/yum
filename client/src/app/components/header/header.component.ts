@@ -27,8 +27,8 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  getName() {
-    return sessionStorage.getItem('name');
+  getUser() {
+    return sessionStorage.getItem('user');
   }
 
   onLogout() {
