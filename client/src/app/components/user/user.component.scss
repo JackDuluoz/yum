@@ -1,11 +1,11 @@
 .user {
   height: 86vh;
   width: 100vw;
-  background-color: #3D82AB;
-  // background-image: url("../../../../public/user-background.jpg");
-  // background-blend-mode: multiply;
-  // background-position: center center;
-  // background-size: cover;
+  // background-color: #3D82AB;
+  background-image: url("../../../../public/user-background.jpg");
+  background-blend-mode: multiply;
+  background-position: center center;
+  background-size: cover;
   color: #91D4C2;
   box-sizing: border-box;
 }
@@ -18,8 +18,7 @@
   height: 500px;
   max-width: 430px;
   width: 80%;
-  background: rgba(0,0,0,0.7);
-  // border: 1px solid silver;
+  background: rgba(0,56,83,0.7);
   border-radius: 14px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.3);
   display: flex;
