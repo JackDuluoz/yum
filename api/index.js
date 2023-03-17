@@ -62,16 +62,18 @@ app.get("/users/:id", (req, res) => {
 });
 
 app.post('/users/login', (req, res) => {
-  console.log(req.body)
+
   const submittedEmail = req.body.email
   const submittedPassword = req.body.password
-  console.log(submittedEmail)
+
+
   if (!submittedEmail) {
     return res.status(400).send({ message: "Email cannot be blank" })
   }
   if (!submittedPassword) {
     return res.status(400).send({ message: "Password cannot be blank" })
   }
+
   db.collection('users')
     .findOne({email: submittedEmail.toLowerCase().trim()})
     .then((user) => {
@@ -84,12 +86,39 @@ app.post('/users/login', (req, res) => {
       }
         return res.status(200).send({ message: "Welcome back", user })     
     })
+  
 })
 
-app.post('/users/register', (req, res) => {
+const usernameExists = async (submission)=> {
+  const user = await db.collection('users')
+    .findOne({username: submission.trim()})
+      if (user) {
+        console.log("Username already exists")
+        return true
+      } else {
+        console.log("Username available")
+        return false
+      }
+}
+
+const emailExists = async (submission)=> {
+  const user = await db.collection('users')
+    .findOne({email: submission.toLowerCase().trim()})
+      if (user) {
+        console.log("Email in use")
+        return true
+      } else {
+        console.log("Email not in use")
+        return false
+      }
+}
+
+app.post('/users/register', async (req, res) => {
+
   const submittedUsername = req.body.username
   const submittedEmail = req.body.email
   const submittedPassword = req.body.password
+
   if (!submittedUsername) {
     return res.status(400).send({ message: "Username cannot be blank" })
   }
@@ -99,6 +128,13 @@ app.post('/users/register', (req, res) => {
   if (!submittedPassword) {
     return res.status(400).send({ message: "Password cannot be blank" })
   }
+  if (await usernameExists(submittedUsername)) {
+    return res.status(400).send({ message: "Username already exists" })
+  }
+  if (await emailExists(submittedEmail)) {
+    return res.status(400).send({ message: "Email in use" })
+  }
+  
   db.collection('users')
     .insertOne({ username: submittedUsername, email: submittedEmail, password: submittedPassword, isAdmin: false })
     .then((response) => {
@@ -106,7 +142,7 @@ app.post('/users/register', (req, res) => {
       db.collection('users')
         .findOne({_id: response.insertedId})
         .then((user) => {
-          console.log(user)
+          console.log('User created', user)
           res.status(201).send({ message: "New user added", user })
         })
         .catch((error) => {
@@ -115,5 +151,6 @@ app.post('/users/register', (req, res) => {
     })
     .catch((error) => {
       res.status(500).send({ message: "Insert error", error })
-    })     
+    })
+  
 })
