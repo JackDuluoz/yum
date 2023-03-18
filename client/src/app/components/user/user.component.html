@@ -7,9 +7,9 @@
         <form>
           <input type="email" placeholder="Email" name="email" [(ngModel)]="credentials.email" required>
           <input type="password" placeholder="Password" name="password" [(ngModel)]="credentials.password" requried>
+          <div class="error">{{loginError}}</div>
           <button (click)="onLogin()">Login</button>
         </form>
-        <div class="error" *ngIf="this.loginError !== null">{{this.loginError}}</div>
         <div class="signup">
           <span class="signup">Don't have an account?
           <label for="check">Signup</label>
@@ -22,9 +22,9 @@
         <input type="text" placeholder="Username" name="username" [(ngModel)]="registration.username" required>
         <input type="email" placeholder="Email" name="email" [(ngModel)]="registration.email" required>
         <input type="password" placeholder="Password" name="password" [(ngModel)]="registration.password" requried>
+        <div class="error">{{registrationError}}</div>
         <button (click)="onRegister()">Signup</button>
       </form>
-      <div class="error" *ngIf="this.registrationError !== null">{{this.registrationError}}</div>
       <div class="signup">
         <span class="signup">Already have an account?
         <label for="check">Login</label>
