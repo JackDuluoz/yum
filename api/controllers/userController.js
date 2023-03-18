@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const mongoose = require('mongoose')
+const bcrypt = require("bcryptjs");
 
 const getUsers = async (req, res) => {
   const users = await User.find({}).sort({createdAt: -1})
@@ -29,7 +30,7 @@ const login = async (req, res) => {
   }
  try {
    const user = await User.findOne({ email: submittedEmail.toLowerCase().trim() })
-    if (user.password !== submittedPassword) {
+    if (bcrypt.compareSync(submittedPassword, user.password) === false) {
         return res.status(400).send({ message: "Invalid password" })
       } else {
         return res.status(200).send({ message: "Welcome back", user })     
@@ -43,6 +44,7 @@ const register = async (req, res) => {
   const submittedUsername = req.body.username
   const submittedEmail = req.body.email
   const submittedPassword = req.body.password
+  const hashedPassword = bcrypt.hashSync(submittedPassword, 10)
   if (!submittedUsername) {
     return res.status(400).send({ message: "Username cannot be blank" })
   }
@@ -59,7 +61,7 @@ const register = async (req, res) => {
     const user = await User.create({
       username: submittedUsername,
       email: submittedEmail.toLowerCase().trim(),
-      password: submittedPassword,
+      password: hashedPassword,
       isAdmin: false
     })
     return res.status(200).send({ message: "Welcome", user })  
