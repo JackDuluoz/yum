@@ -18,30 +18,36 @@ const getUser = async (req, res) => {
   res.status(200).json(user)
 }
 
+const login = async (req, res) => {
+  const submittedEmail = req.body.email
+  const submittedPassword = req.body.password
+ try {
+   const user = await User.findOne({ email: submittedEmail.toLowerCase().trim() })
+    if (user.password !== submittedPassword) {
+        return res.status(400).send({ message: "Invalid password" })
+      } else {
+        return res.status(200).send({ message: "Welcome back", user })     
+    }
+  } catch (error) {
+    return res.status(400).send({ message: "User does not exist" })
+  }  
+}
 
+const register = async (req, res) => {
+  const submittedUsername = req.body.username
+  const submittedEmail = req.body.email
+  const submittedPassword = req.body.password
+  try {
+    const user = await User.create({
+      username: submittedUsername,
+      email: submittedEmail.toLowerCase().trim(),
+      password: submittedPassword,
+      isAdmin: false
+    })
+    return res.status(200).send({ message: "Welcome", user })  
+  } catch (error) {
+    res.status(500).send({ message: "Error", error })
+  }
+}
 
-module.exports = { getUsers, getUser }
-
-// const usernameExists = async (submission)=> {
-//   const user = await db.collection('users')
-//     .findOne({username: submission})
-//       if (user) {
-//         console.log("Username already exists")
-//         return true
-//       } else {
-//         console.log("Username available")
-//         return false
-//       }
-// }
-
-// const emailExists = async (submission)=> {
-//   const user = await db.collection('users')
-//     .findOne({email: submission})
-//       if (user) {
-//         console.log("Email in use")
-//         return true
-//       } else {
-//         console.log("Email not in use")
-//         return false
-//       }
-// }
+module.exports = { getUsers, getUser, login, register }
