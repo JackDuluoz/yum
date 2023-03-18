@@ -11,6 +11,9 @@ export class UserComponent implements OnInit {
 
   session: boolean = true;
 
+  loginError: any = null
+  registrationError: any = null
+
   credentials = {
     email: "",
     password: ""
@@ -32,13 +35,43 @@ export class UserComponent implements OnInit {
   }
 
   onLogin() {
-    this.databaseService.login(this.credentials)
+    let resObj: any;
+    let errObj: any;
+    this.databaseService.login(this.credentials).subscribe(
+      (response) => {
+        resObj = response
+        sessionStorage.setItem('userId', resObj.user._id)
+        sessionStorage.setItem('user', resObj.user.username)
+      },
+      (error) => {
+        errObj = error
+        this.loginError = errObj.error.message
+        setTimeout(() => {
+          this.loginError = null
+        }, 2000)
+      }
+    )
     this.credentials.email = ''
     this.credentials.password = ''
   }
 
   onRegister() {
-    this.databaseService.register(this.registration)
+    let resObj: any;
+    let errObj: any;
+    this.databaseService.register(this.registration).subscribe(
+      (response) => {
+        resObj = response
+        sessionStorage.setItem('userId', resObj.user._id)
+        sessionStorage.setItem('user', resObj.user.username)
+      },
+      (error) => {
+        errObj = error
+        this.registrationError = errObj.error.message
+        setTimeout(() => {
+          this.registrationError = null
+        }, 2000)
+      }
+    )
     this.registration.username = ''
     this.registration.email = ''
     this.registration.password = ''

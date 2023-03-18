@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,31 +20,11 @@ export class DatabaseService {
   //   )
   // }
 
-  login(credentials: object) {
-    let resObj: any;
-    return this.http.post('http://localhost:3000/users/login', credentials).subscribe(
-      (response) => {
-        console.log(response)
-        resObj = response
-        if (resObj.user._id) {
-          sessionStorage.setItem('userId', resObj.user._id)
-          sessionStorage.setItem('user', resObj.user.username)
-        }
-      }
-    )
+  login(credentials: object): Observable<any> {
+    return this.http.post('http://localhost:3000/users/login', credentials)
   }
 
-  register(registration: object) {
-    let resObj: any;
-    return this.http.post('http://localhost:3000/users/register', registration).subscribe(
-      (response) => {
-        console.log(response)
-        resObj = response
-        if (resObj.user._id) {
-          sessionStorage.setItem('userId', resObj.user._id)
-          sessionStorage.setItem('user', resObj.user.username)
-        }
-      }
-    )
+  register(registration: object): Observable<any> {
+    return this.http.post('http://localhost:3000/users/register', registration)
   }
 }

@@ -21,6 +21,12 @@ const getUser = async (req, res) => {
 const login = async (req, res) => {
   const submittedEmail = req.body.email
   const submittedPassword = req.body.password
+  if (!submittedEmail) {
+    return res.status(400).send({ message: "Email cannot be blank" })
+  }
+  if (!submittedPassword) {
+    return res.status(400).send({ message: "Password cannot be blank" })
+  }
  try {
    const user = await User.findOne({ email: submittedEmail.toLowerCase().trim() })
     if (user.password !== submittedPassword) {
@@ -29,17 +35,26 @@ const login = async (req, res) => {
         return res.status(200).send({ message: "Welcome back", user })     
     }
   } catch (error) {
-    return res.status(400).send({ message: "User does not exist" })
-  }  
+    return res.status(400).send({ message: "Email not found" })
+  }
 }
 
 const register = async (req, res) => {
   const submittedUsername = req.body.username
   const submittedEmail = req.body.email
   const submittedPassword = req.body.password
-  // if (password.length < 8) {
-  //   return res.status(400).send({ message: "Password must be at least 8 characters" })
-  // }
+  if (!submittedUsername) {
+    return res.status(400).send({ message: "Username cannot be blank" })
+  }
+  if (!submittedEmail) {
+    return res.status(400).send({ message: "Email cannot be blank" })
+  }
+  if (!submittedPassword) {
+    return res.status(400).send({ message: "Password cannot be blank" })
+  }
+  if (submittedPassword.length < 8) {
+    return res.status(400).send({ message: "Password must be at least 8 characters" })
+  }
   try {
     const user = await User.create({
       username: submittedUsername,
@@ -49,7 +64,7 @@ const register = async (req, res) => {
     })
     return res.status(200).send({ message: "Welcome", user })  
   } catch (error) {
-    res.status(500).send({ message: "Error", error })
+    res.status(500).send({ message: "Invalid inputs", error })
   }
 }
 
