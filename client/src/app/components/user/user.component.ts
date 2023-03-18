@@ -48,7 +48,7 @@ export class UserComponent implements OnInit {
         this.loginError = errObj.error.message
         setTimeout(() => {
           this.loginError = null
-        }, 1500)
+        }, 3000)
       }
     )
     this.credentials.email = ''
@@ -69,7 +69,7 @@ export class UserComponent implements OnInit {
         this.registrationError = errObj.error.message
         setTimeout(() => {
           this.registrationError = null
-        }, 1500)
+        }, 3000)
       }
     )
     this.registration.username = ''

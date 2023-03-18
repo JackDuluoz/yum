@@ -7,7 +7,12 @@
         <form>
           <input type="email" placeholder="Email" name="email" [(ngModel)]="credentials.email" required>
           <input type="password" placeholder="Password" name="password" [(ngModel)]="credentials.password" requried>
-          <div class="error">{{loginError}}</div>
+          <div class="error">
+            <span *ngIf="this.loginError !== null" class="error-msg" (click)="this.loginError = null">
+              <!-- <mat-icon>error_outline</mat-icon> -->
+              {{loginError}}
+            </span>
+          </div>
           <button (click)="onLogin()">Login</button>
         </form>
         <div class="signup">
@@ -22,7 +27,12 @@
         <input type="text" placeholder="Username" name="username" [(ngModel)]="registration.username" required>
         <input type="email" placeholder="Email" name="email" [(ngModel)]="registration.email" required>
         <input type="password" placeholder="Password" name="password" [(ngModel)]="registration.password" requried>
-        <div class="error">{{registrationError}}</div>
+        <div class="error">
+            <span *ngIf="this.registrationError !== null" class="error-msg" (click)="this.registrationError = null">
+              <!-- <mat-icon>error_outline</mat-icon> -->
+              {{registrationError}}
+            </span>
+          </div>
         <button (click)="onRegister()">Signup</button>
       </form>
       <div class="signup">
