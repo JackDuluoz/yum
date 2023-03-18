@@ -37,6 +37,9 @@ const register = async (req, res) => {
   const submittedUsername = req.body.username
   const submittedEmail = req.body.email
   const submittedPassword = req.body.password
+  // if (password.length < 8) {
+  //   return res.status(400).send({ message: "Password must be at least 8 characters" })
+  // }
   try {
     const user = await User.create({
       username: submittedUsername,

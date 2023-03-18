@@ -19,28 +19,28 @@ export class DatabaseService {
   // }
 
   login(credentials: object) {
-    let userObj: any;
+    let resObj: any;
     return this.http.post('http://localhost:3000/users/login', credentials).subscribe(
       (response) => {
         console.log(response)
-        userObj = response
-        if (userObj.user._id) {
-          sessionStorage.setItem('userId', userObj.user._id)
-          sessionStorage.setItem('user', userObj.user.username)
+        resObj = response
+        if (resObj.user._id) {
+          sessionStorage.setItem('userId', resObj.user._id)
+          sessionStorage.setItem('user', resObj.user.username)
         }
       }
     )
   }
 
   register(registration: object) {
-    let userObj: any;
+    let resObj: any;
     return this.http.post('http://localhost:3000/users/register', registration).subscribe(
       (response) => {
         console.log(response)
-        userObj = response
-        if (userObj.user._id) {
-          sessionStorage.setItem('userId', userObj.user._id)
-          sessionStorage.setItem('user', userObj.user.username)
+        resObj = response
+        if (resObj.user._id) {
+          sessionStorage.setItem('userId', resObj.user._id)
+          sessionStorage.setItem('user', resObj.user.username)
         }
       }
     )
