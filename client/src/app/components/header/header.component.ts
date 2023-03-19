@@ -14,7 +14,6 @@ export class HeaderComponent implements OnInit {
   showFilter: boolean = false;
   showMap: boolean = true;
   subscription: Subscription;
-  // name: string = '';
 
   constructor(private filterService: FilterService, private mapuiService: MapuiService, public router: Router) {
     this.subscription = this.mapuiService

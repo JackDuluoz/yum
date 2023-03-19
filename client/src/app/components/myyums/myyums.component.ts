@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-myyums',
@@ -7,21 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyyumsComponent implements OnInit {
 
-  yums = [
-    { name: "Ciao!", type: "Italian" },
-    { name: "Le Hueng", type: "Chinese" },
-    { name: "Pashwindi", type: "Indian" },
-    { name: "Formosa", type: "Thai" },
-    { name: "Bobby's Bites", type: "Diner" },
-    { name: "Je Suis", type: "French" },
-    { name: "Hallo Weld", type: "German" },
-    { name: "Kyoto", type: "Japanese" }
-  ]
+  yums: Array<any> = []
 
-  constructor() {}
+  getYumsForUser() {
+    let id: string | null
+    if (sessionStorage.getItem('userId') === null) {
+      this.router.navigate(['/user'])
+    }
+    id = sessionStorage.getItem('userId')
+    this.databaseService.getUser(id).subscribe(
+      (response) => {
+        this.yums = response.yums
+      }
+    )
+  }
+
+  constructor(private databaseService: DatabaseService, public router: Router) {}
 
   ngOnInit() {
-
+    this.getYumsForUser()
   }
 
   onReview() {
