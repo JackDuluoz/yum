@@ -4,7 +4,7 @@ mat-toolbar {
   justify-content: space-between;
   background-color: #003853;
   color: #91D4C2;
-  height: 7vh;
+  height: 8vh;
 }
 
 mat-toolbar a {
@@ -12,10 +12,8 @@ mat-toolbar a {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 50px;
+  width: 40px;
   height: 75%;
-  margin: 0px;
-  padding: 0px;
 }
 
 mat-toolbar button {

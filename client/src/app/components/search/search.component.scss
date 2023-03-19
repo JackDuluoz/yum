@@ -1,6 +1,10 @@
 .search {
-  height: 86vh;
+  height: 84vh;
   width: 100vw;
-  background: linear-gradient(.25turn, #3D82AB, 75%, #45BB89);
+  // background: linear-gradient(.25turn, #3D82AB, 75%, #45BB89);
+   background-image: url("../../../../public/yums.jpg");
+  background-blend-mode: multiply;
+  background-position: center center;
+  background-size: cover;
   color: #91D4C2;
 }

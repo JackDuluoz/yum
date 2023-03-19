@@ -1,5 +1,5 @@
 .my-yums {
-  height: 86vh;
+  height: 84vh;
   width: 100vw;
   // background: linear-gradient(.25turn, #3D82AB, 75%, #45BB89);
   background-image: url("../../../../public/yums.jpg");
@@ -23,7 +23,7 @@
   margin-top: 8px;
   margin-bottom: 8px;
   background: rgba(0,56,83,0.7);
-  padding: 12px;
+  padding: 8px;
   border-radius: 6px;
 }
 
@@ -55,20 +55,20 @@
   align-items: center;
 }
 #yum-name {
-  font-size: 24px;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 #yum-name:hover {
   text-decoration: underline;
 }
 #yum-type {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .yum-content {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  font-size: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .yum-actions {
@@ -82,7 +82,7 @@
   color: white;
   border-radius: 6px;
   padding: 4px 8px 4px 8px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   letter-spacing: 1px;
   cursor: pointer;

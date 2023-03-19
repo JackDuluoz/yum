@@ -6,12 +6,12 @@
     <mat-sidenav-content>
       <google-map
         *ngIf="showMap"
-        height="86vh"
+        height="84vh"
         width="100vw"
         [options]="mapOptions"
         (mapInitialized)="handleMapInitialized($event)"
       ></google-map>
     </mat-sidenav-content>
   </mat-sidenav-container>
-  <section class="events" *ngIf="!showMap">Map Yum Components</section>
+  <section class="events" *ngIf="!showMap">Map Components</section>
 </div>
