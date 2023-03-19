@@ -1,11 +1,11 @@
 .user {
   height: 86vh;
   width: 100vw;
-  background: linear-gradient(.25turn, #3D82AB, 80%, #45BB89);
-  // background-image: url("../../../../public/user.jpg");
-  // background-blend-mode: multiply;
-  // background-position: center center;
-  // background-size: cover;
+  // background: linear-gradient(.25turn, #3D82AB, 80%, #45BB89);
+  background-image: url("../../../../public/user.jpg");
+  background-blend-mode: multiply;
+  background-position: center center;
+  background-size: cover;
   color: #91D4C2;
   box-sizing: border-box;
 }

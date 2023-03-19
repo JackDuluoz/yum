@@ -1,11 +1,11 @@
 .my-yums {
   height: 86vh;
   width: 100vw;
-  background: linear-gradient(.25turn, #3D82AB, 75%, #45BB89);
-  // background-image: url("../../../../public/yums.jpg");
-  // background-blend-mode: multiply;
-  // background-position: center center;
-  // background-size: cover;
+  // background: linear-gradient(.25turn, #3D82AB, 75%, #45BB89);
+  background-image: url("../../../../public/yums.jpg");
+  background-blend-mode: multiply;
+  background-position: center center;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -14,23 +14,83 @@
   overflow-y: scroll;
 }
 
-.example-card {
-  width: 90%;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  background: rgba(0,56,83,0.7);
-}
-
-.example-card:first-child {
-  margin-top: 16px;
-}
-.example-card:last-child {
-  margin-bottom: 16px;
-}
-
-.example-card mat-card-header {
+.yum {
+  width: 90vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background: rgba(0,56,83,0.7);
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.yum:first-child {
+  margin-top: 16px;
+}
+.yum:last-child {
+  margin-bottom: 16px;
+}
+
+.yum-photo {
+  width: 30%;
+}
+.yum-photo img {
+  height: 100%;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.yum-info {
+  width: 70%;
+  margin: 0 0 0 12px;
+}
+
+.yum-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+#yum-name {
+  font-size: 24px;
+  font-weight: bold;
+}
+#yum-type {
+  font-size: 1rem;
+}
+
+.yum-content {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.yum-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.yum-button {
+  background-color: #45BB89;
+  color: white;
+  border-radius: 6px;
+  padding: 4px 8px 4px 8px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.yum-button:hover {
+  background: #006653;
+}
+#yum-remove {
+  background-color: darkred;
+}
+#yum-remove:hover {
+  background-color: red;
 }
