@@ -58,6 +58,9 @@
   font-size: 24px;
   font-weight: bold;
 }
+#yum-name:hover {
+  text-decoration: underline;
+}
 #yum-type {
   font-size: 1rem;
 }
@@ -89,8 +92,8 @@
   background: #006653;
 }
 #yum-remove {
-  background-color: darkred;
+  background: rgb(200, 0, 0);
 }
 #yum-remove:hover {
-  background-color: red;
+  background: rgb(120, 0, 0);
 }

@@ -62,7 +62,8 @@ const register = async (req, res) => {
       username: submittedUsername,
       email: submittedEmail.toLowerCase().trim(),
       password: hashedPassword,
-      isAdmin: false
+      isAdmin: false,
+      yums: []
     })
     return res.status(200).send({ message: "Welcome", user })  
   } catch (error) {

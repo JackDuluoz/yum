@@ -7,17 +7,29 @@ mat-toolbar {
   height: 7vh;
 }
 
-mat-toolbar button {
-  background-color: transparent;
-  color: #91D4C2;
-  border: none;
+mat-toolbar a {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50px;
+  height: 75%;
+  margin: 0px;
+  padding: 0px;
 }
 
+mat-toolbar button {
+  display: flex;
+  background-color: transparent;
+  color: #91D4C2;
+}
 mat-toolbar button:hover {
   color: #45BB89;
 }
-
 mat-toolbar button:active {
   background-color: rgb(0, 0, 0, 0.15);
   border-radius: 25%;
+}
+mat-toolbar h6 {
+  height: 16px;
 }

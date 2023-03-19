@@ -20,6 +20,10 @@ const userSchema = new Schema({
   isAdmin: {
     type: Boolean,
     required: true
+  },
+  yums: {
+    type: Array,
+    required: true
   }
 
 }, { timestamps: false })
