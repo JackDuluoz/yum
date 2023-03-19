@@ -1,6 +1,36 @@
 .my-yums {
   height: 86vh;
   width: 100vw;
-  background-color: #3D82AB;
+  background: linear-gradient(.25turn, #3D82AB, 75%, #45BB89);
+  // background-image: url("../../../../public/yums.jpg");
+  // background-blend-mode: multiply;
+  // background-position: center center;
+  // background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   color: #91D4C2;
+  overflow-y: scroll;
+}
+
+.example-card {
+  width: 90%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background: rgba(0,56,83,0.7);
+}
+
+.example-card:first-child {
+  margin-top: 16px;
+}
+.example-card:last-child {
+  margin-bottom: 16px;
+}
+
+.example-card mat-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

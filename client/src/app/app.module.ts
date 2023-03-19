@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
     FormsModule,
     GoogleMapsModule,
     HttpClientModule,
+    MatCardModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
