@@ -10,6 +10,7 @@
         width="100vw"
         [options]="mapOptions"
         (mapInitialized)="handleMapInitialized($event)"
+        (mapClick)="click($event)"
       ></google-map>
     </mat-sidenav-content>
   </mat-sidenav-container>

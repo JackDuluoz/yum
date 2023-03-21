@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps';
 import { FilterService } from 'src/app/services/filter.service';
 import { MapuiService } from 'src/app/services/mapui.service';
 import { Subscription } from 'rxjs';
@@ -36,10 +37,21 @@ export class MapComponent implements OnInit {
       .subscribe((value) => (this.showFilter = value));
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  clickInfo: any;
+  click(event: google.maps.MapMouseEvent | google.maps.IconMouseEvent) {
+    // event.stop()
+    this.clickInfo = event
+    if (this.clickInfo.placeId) {
+      console.log(this.clickInfo.placeId);
+
+    }
+
+  }
 
   mapOptions: google.maps.MapOptions = {
-    zoom: 11,
+    zoom: 14,
     center: { lat: 49.28, lng: -123.12 },
     mapTypeControl: false,
     streetViewControl: false,
@@ -47,16 +59,16 @@ export class MapComponent implements OnInit {
   };
 
   markers: MarkerProperties[] = [
-    {
-      position: { lat: 49.25848164375385, lng: -123.04472531596004 },
-      type: 'restaurant',
-      label: 'italian',
-    },
-    {
-      position: { lat: 49.24692611786474, lng: -123.10101442457946 },
-      type: 'cafe',
-      label: 'french',
-    },
+    // {
+    //   position: { lat: 49.25848164375385, lng: -123.04472531596004 },
+    //   type: 'restaurant',
+    //   label: 'italian',
+    // },
+    // {
+    //   position: { lat: 49.24692611786474, lng: -123.10101442457946 },
+    //   type: 'cafe',
+    //   label: 'french',
+    // },
     {
       position: { lat: 49.28065710684262, lng: -123.10705560135719 },
       type: 'diner',
