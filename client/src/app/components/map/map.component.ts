@@ -24,10 +24,9 @@ export class MapComponent implements OnInit {
   map: Subscription;
   filter: Subscription;
 
-  constructor(
-    private filterService: FilterService,
-    private mapuiService: MapuiService
-  ) {
+  @ViewChild('gmap') gmap: any;
+
+  constructor(private filterService: FilterService, private mapuiService: MapuiService) {
     this.map = this.mapuiService
       .onToggle()
       .subscribe((value) => (this.showMap = value));
@@ -39,12 +38,31 @@ export class MapComponent implements OnInit {
 
   ngOnInit() { }
 
+
+
   clickInfo: any;
   click(event: google.maps.MapMouseEvent | google.maps.IconMouseEvent) {
     // event.stop()
     this.clickInfo = event
     if (this.clickInfo.placeId) {
+      console.log(this.clickInfo);
       console.log(this.clickInfo.placeId);
+
+      const request = {
+        placeId: this.clickInfo.placeId,
+        fields: ['name', 'rating', 'formatted_phone_number', 'geometry']
+      };
+
+      function callback(place: any, status: any) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          console.log(place);
+        } else {
+          console.log("cheese not ok")
+        }
+      }
+
+      let service = new google.maps.places.PlacesService(document.getElementById('gmap') as HTMLDivElement);
+      service.getDetails(request, callback);
 
     }
 
