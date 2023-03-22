@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps';
 import { FilterService } from 'src/app/services/filter.service';
 import { MapuiService } from 'src/app/services/mapui.service';
@@ -21,13 +21,32 @@ interface MarkerProperties {
 export class MapComponent implements OnInit {
   showFilter: boolean = false;
   showMap: boolean = true;
-  map: Subscription;
+  mapView: Subscription;
   filter: Subscription;
 
-  @ViewChild('gmap') gmap: any;
+  mapOptions: google.maps.MapOptions = {
+    zoom: 12,
+    center: { lat: 49.28, lng: -123.12 },
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false
+  };
+
+  markers: MarkerProperties[] = [
+    {
+      position: { lat: 49.24692611786474, lng: -123.10101442457946 },
+      type: 'cafe',
+      label: 'french',
+    },
+    {
+      position: { lat: 49.28065710684262, lng: -123.10705560135719 },
+      type: 'diner',
+      label: 'american'
+    },
+  ];
 
   constructor(private filterService: FilterService, private mapuiService: MapuiService) {
-    this.map = this.mapuiService
+    this.mapView = this.mapuiService
       .onToggle()
       .subscribe((value) => (this.showMap = value));
 
@@ -38,62 +57,6 @@ export class MapComponent implements OnInit {
 
   ngOnInit() { }
 
-
-
-  clickInfo: any;
-  click(event: google.maps.MapMouseEvent | google.maps.IconMouseEvent) {
-    // event.stop()
-    this.clickInfo = event
-    if (this.clickInfo.placeId) {
-      console.log(this.clickInfo);
-      console.log(this.clickInfo.placeId);
-
-      const request = {
-        placeId: this.clickInfo.placeId,
-        fields: ['name', 'rating', 'formatted_phone_number', 'geometry']
-      };
-
-      function callback(place: any, status: any) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          console.log(place);
-        } else {
-          console.log("cheese not ok")
-        }
-      }
-
-      let service = new google.maps.places.PlacesService(document.getElementById('gmap') as HTMLDivElement);
-      service.getDetails(request, callback);
-
-    }
-
-  }
-
-  mapOptions: google.maps.MapOptions = {
-    zoom: 14,
-    center: { lat: 49.28, lng: -123.12 },
-    mapTypeControl: false,
-    streetViewControl: false,
-    fullscreenControl: false,
-  };
-
-  markers: MarkerProperties[] = [
-    // {
-    //   position: { lat: 49.25848164375385, lng: -123.04472531596004 },
-    //   type: 'restaurant',
-    //   label: 'italian',
-    // },
-    // {
-    //   position: { lat: 49.24692611786474, lng: -123.10101442457946 },
-    //   type: 'cafe',
-    //   label: 'french',
-    // },
-    {
-      position: { lat: 49.28065710684262, lng: -123.10705560135719 },
-      type: 'diner',
-      label: 'american',
-    },
-  ];
-
   handleMapInitialized(map: google.maps.Map) {
     this.markers.forEach((marker: MarkerProperties) => {
       new google.maps.Marker({
@@ -102,5 +65,28 @@ export class MapComponent implements OnInit {
         map,
       });
     });
+  }
+
+  click(event: google.maps.MapMouseEvent | google.maps.IconMouseEvent) {
+    // event.stop()
+    let clickInfo: any;
+    clickInfo = event
+    if (!clickInfo.placeId) {
+      return
+    }
+    let map = new google.maps.Map(document.createElement('temp-map'));
+    const service = new google.maps.places.PlacesService(map);
+    const request = {
+      placeId: clickInfo.placeId,
+      fields: ['name', 'rating', 'reviews', 'formatted_address', 'formatted_phone_number', 'geometry']
+    };
+    const callback = (place: any, status: any) => {
+      if (place && status === google.maps.places.PlacesServiceStatus.OK) {
+        console.log(place);
+      } else {
+        console.log("Status not ok", status)
+      }
+    }
+    service.getDetails(request, callback)
   }
 }
