@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps';
 import { FilterService } from 'src/app/services/filter.service';
 import { MapuiService } from 'src/app/services/mapui.service';
 import { Subscription } from 'rxjs';
@@ -68,13 +67,13 @@ export class MapComponent implements OnInit {
   }
 
   click(event: google.maps.MapMouseEvent | google.maps.IconMouseEvent) {
-    // event.stop()
+    event.stop()
     let clickInfo: any;
     clickInfo = event
     if (!clickInfo.placeId) {
       return
     }
-    let map = new google.maps.Map(document.createElement('temp-map'));
+    let map = new google.maps.Map(document.createElement('div'));
     const service = new google.maps.places.PlacesService(map);
     const request = {
       placeId: clickInfo.placeId,
