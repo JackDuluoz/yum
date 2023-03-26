@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { DatabaseService } from 'src/app/services/database.service';
 
+interface Yum {
+  name: string;
+  type: string;
+}
+
 @Component({
   selector: 'app-myyums',
   templateUrl: './myyums.component.html',
@@ -9,7 +14,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class MyyumsComponent implements OnInit {
 
-  yums: Array<any> = []
+  yums: Array<Yum> = []
 
   getYumsForUser() {
     let id: string | null

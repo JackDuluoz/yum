@@ -82,6 +82,10 @@ export class MapComponent implements OnInit {
     const callback = (place: any, status: any) => {
       if (place && status === google.maps.places.PlacesServiceStatus.OK) {
         console.log(place);
+        let infoWindow = new google.maps.InfoWindow({
+          content: place.name
+        })
+        console.log(infoWindow.getContent())
       } else {
         console.log("Status not ok", status)
       }

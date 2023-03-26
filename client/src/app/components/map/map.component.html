@@ -11,7 +11,9 @@
         [options]="mapOptions"
         (mapInitialized)="handleMapInitialized($event)"
         (mapClick)="click($event)"
-      ></google-map>
+      >
+      <map-info-window></map-info-window>
+    </google-map>
     </mat-sidenav-content>
   </mat-sidenav-container>
   <section class="events" *ngIf="!showMap">Map Components</section>
