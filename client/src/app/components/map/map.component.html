@@ -12,7 +12,14 @@
         (mapInitialized)="handleMapInitialized($event)"
         (mapClick)="click($event)"
       >
-      <map-info-window></map-info-window>
+        <map-marker
+          #markerElem = "mapMarker"
+          *ngFor="let marker of markers"
+          [position]="marker.position"
+          (mapClick)="openInfoWindow(markerElem)"
+  >
+        </map-marker>
+        <map-info-window>Tomato</map-info-window>
     </google-map>
     </mat-sidenav-content>
   </mat-sidenav-container>

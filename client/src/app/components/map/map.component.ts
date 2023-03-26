@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { GoogleMap, MapMarker, MapInfoWindow
+ } from '@angular/google-maps';
 import { FilterService } from 'src/app/services/filter.service';
 import { MapuiService } from 'src/app/services/mapui.service';
 import { Subscription } from 'rxjs';
@@ -18,6 +20,8 @@ interface MarkerProperties {
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow
+  infoContent = ''
   showFilter: boolean = false;
   showMap: boolean = true;
   mapView: Subscription;
@@ -66,10 +70,13 @@ export class MapComponent implements OnInit {
     });
   }
 
+  openInfoWindow(marker: MapMarker) {
+    this.infoWindow.open(marker)
+  }
+
   click(event: google.maps.MapMouseEvent | google.maps.IconMouseEvent) {
     event.stop()
-    let clickInfo: any;
-    clickInfo = event
+    let clickInfo: any = event
     if (!clickInfo.placeId) {
       return
     }
@@ -81,11 +88,16 @@ export class MapComponent implements OnInit {
     };
     const callback = (place: any, status: any) => {
       if (place && status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log(place);
-        let infoWindow = new google.maps.InfoWindow({
-          content: place.name
+        console.log("Place", place);
+        const latLng = place.geometry.location.toJSON()
+        this.markers.push({
+          position: {
+            lat: latLng.lat,
+            lng: latLng.lng
+          },
+          type: 'Potato',
+          label: 'Cheese'
         })
-        console.log(infoWindow.getContent())
       } else {
         console.log("Status not ok", status)
       }
