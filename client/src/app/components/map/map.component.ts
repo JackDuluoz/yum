@@ -34,6 +34,12 @@ export class MapComponent implements OnInit {
     fullscreenControl: false
   };
 
+  infoWindowOptions: google.maps.InfoWindowOptions = {
+    position: { lat: 49.28, lng: -123.12 }
+  }
+
+  infoWindowContent: String = "This is a wonderful, quaint little family restaurant right in the heart of downtown Vancouver."
+
   markers: MarkerProperties[] = [
     // {
     //   position: { lat: 49.24692611786474, lng: -123.10101442457946 },
@@ -81,6 +87,7 @@ export class MapComponent implements OnInit {
     }
     const latLng = event.latLng?.toJSON()
     console.log(latLng)
+    this.infoWindowOptions = { position: latLng }
     // this.infoWindow.open()
     let map = new google.maps.Map(document.createElement('div'));
     const service = new google.maps.places.PlacesService(map);
@@ -91,15 +98,17 @@ export class MapComponent implements OnInit {
     const callback = (place: any, status: any) => {
       if (place && status === google.maps.places.PlacesServiceStatus.OK) {
         console.log("Place", place);
-        const latLng = place.geometry.location.toJSON()
-        this.markers.push({
-          position: {
-            lat: latLng.lat,
-            lng: latLng.lng
-          },
-          type: 'Potato',
-          label: 'Cheese'
-        })
+        // const latLng = place.geometry.location.toJSON()
+        // this.infoWindowOptions = { position: latLng }
+        this.infoWindow.open()
+        // this.markers.push({
+        //   position: {
+        //     lat: latLng.lat,
+        //     lng: latLng.lng
+        //   },
+        //   type: 'Potato',
+        //   label: 'Cheese'
+        // })
       } else {
         console.log("Status not ok", status)
       }

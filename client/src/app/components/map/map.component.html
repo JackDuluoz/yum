@@ -19,7 +19,11 @@
           (mapClick)="openInfoWindow(markerElem)"
   >
         </map-marker>
-        <map-info-window>Tomato</map-info-window>
+        <map-info-window
+          [options]="infoWindowOptions"
+        >
+          {{infoWindowContent}}
+        </map-info-window>
     </google-map>
     </mat-sidenav-content>
   </mat-sidenav-container>
