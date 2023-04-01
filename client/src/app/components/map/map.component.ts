@@ -20,7 +20,15 @@ interface MarkerProperties {
 })
 export class MapComponent implements OnInit {
   @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow
-  infoContent = ''
+  infoContent = {
+    name: String,
+    address: String,
+    phone: String,
+    rating: Number,
+    totalRatings: Number,
+    reviews: Array,
+    photo: String
+  }
   showFilter: boolean = false;
   showMap: boolean = true;
   mapView: Subscription;
@@ -38,7 +46,7 @@ export class MapComponent implements OnInit {
     position: { lat: 49.28, lng: -123.12 }
   }
 
-  infoWindowContent: String = "This is a wonderful, quaint little family restaurant right in the heart of downtown Vancouver."
+  infoWindowContent: any
 
   markers: MarkerProperties[] = [
     // {
@@ -79,6 +87,10 @@ export class MapComponent implements OnInit {
     this.infoWindow.open(marker)
   }
 
+  closeInfoWindow() {
+    this.infoWindow.close()
+  }
+
   click(event: google.maps.MapMouseEvent | google.maps.IconMouseEvent) {
     event.stop()
     let clickInfo: any = event
@@ -93,13 +105,23 @@ export class MapComponent implements OnInit {
     const service = new google.maps.places.PlacesService(map);
     const request = {
       placeId: clickInfo.placeId,
-      fields: ['name', 'rating', 'reviews', 'formatted_address', 'formatted_phone_number', 'geometry']
+      fields: ['name', 'formatted_address', 'formatted_phone_number', 'rating', 'reviews', 'photo', 'geometry', 'user_ratings_total', 'type']
     };
     const callback = (place: any, status: any) => {
       if (place && status === google.maps.places.PlacesServiceStatus.OK) {
         console.log("Place", place);
         // const latLng = place.geometry.location.toJSON()
         // this.infoWindowOptions = { position: latLng }
+        // console.log(place.photos[0].getUrl())
+        this.infoContent = {
+          name: place.name,
+          address: place.formatted_address,
+          phone: place.formatted_phone_number,
+          rating: place.rating,
+          totalRatings: place.user_ratings_total,
+          reviews: place.reviews,
+          photo: place.photos[0].getUrl()
+        }
         this.infoWindow.open()
         // this.markers.push({
         //   position: {

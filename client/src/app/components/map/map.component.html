@@ -19,10 +19,18 @@
           (mapClick)="openInfoWindow(markerElem)"
   >
         </map-marker>
-        <map-info-window
-          [options]="infoWindowOptions"
-        >
-          {{infoWindowContent}}
+        <map-info-window [options]="infoWindowOptions">
+          <img [src]="infoContent.photo" alt="photo">
+            <div class="info-window">
+                <div class="info-window-name">{{infoContent.name}}</div>
+                <div class="info-window-rating">{{infoContent.rating}} ({{infoContent.totalRatings}})</div>
+              <!-- <span>{{infoContent.address}}</span> -->
+              <!-- <span>{{infoContent.phone}}</span> -->
+              <div class="info-window-buttons">
+                <button>Add</button>
+                <button (click)="closeInfoWindow()">Close</button>
+              </div>
+            </div>
         </map-info-window>
     </google-map>
     </mat-sidenav-content>
