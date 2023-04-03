@@ -105,12 +105,10 @@ export class MapComponent implements OnInit {
   }
 
   onAdd() {
-    console.log("I want to eat here!")
     const id = sessionStorage.getItem('userId')
     if (id === null) {
       return
     }
-    console.log(id)
     this.databaseService.addYumToUser(id, this.infoContent ).subscribe(
       (response) => {
         console.log(response)

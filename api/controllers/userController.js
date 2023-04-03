@@ -32,6 +32,19 @@ const addYumToUser = async (req, res) => {
   }
 }
 
+const removeYumFromUser = async (req, res) => {
+  const id = req.params.id
+  const yum = req.body
+  console.log(id)
+  console.log(yum)
+  try {
+    const user = await User.updateOne({ _id: id }, { $pull: { yums: yum } })
+    return res.status(200).send({ message: "Yum removed", user }) 
+  } catch (error) {
+    return res.status(400).send({ message: "Failed to remove yum" })
+  }
+}
+
 const login = async (req, res) => {
   const submittedEmail = req.body.email
   const submittedPassword = req.body.password
@@ -84,4 +97,4 @@ const register = async (req, res) => {
   }
 }
 
-module.exports = { getUsers, getUser, addYumToUser, login, register }
+module.exports = { getUsers, getUser, addYumToUser, removeYumFromUser, login, register }

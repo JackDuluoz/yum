@@ -7,14 +7,13 @@
   <div class="yum-info">
     <div class="yum-header">
       <a id="yum-name" href="/">{{yum.name}}</a>
-      <span id="yum-type">{{yum.type}}</span>
     </div>
     <div class="yum-content">
       <span>Vancouver</span>
     </div>
     <div class="yum-actions">
       <button class="yum-button" (click)="onReview()">Review</button>
-      <button class="yum-button" id="yum-remove" (click)="onRemove()">Remove</button>
+      <button class="yum-button" id="yum-remove" (click)="onRemove($event)" [attr.name]="yum.name" [attr.type]="yum.type">Remove</button>
     </div>
   </div>
 </div>

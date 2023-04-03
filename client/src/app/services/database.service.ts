@@ -32,6 +32,10 @@ export class DatabaseService {
   }
 
   addYumToUser(id: string, yum: object): Observable<any> {
-    return this.http.put(`http://localhost:3000/users/${id}`, yum)
+    return this.http.put(`http://localhost:3000/users/${id}/add`, yum)
+  }
+
+  removeYumFromUser(id: string, yum: object): Observable<any> {
+    return this.http.put(`http://localhost:3000/users/${id}/remove`, yum)
   }
 }
