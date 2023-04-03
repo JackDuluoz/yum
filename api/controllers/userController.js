@@ -19,6 +19,19 @@ const getUser = async (req, res) => {
   res.status(200).json(user)
 }
 
+const addYumToUser = async (req, res) => {
+  const id = req.params.id
+  const yum = req.body
+  console.log(id)
+  console.log(yum)
+  try {
+    const user = await User.updateOne({ _id: id }, { $push: { yums: { name: yum.name, type: "cheese" } } })
+    return res.status(200).send({ message: "User yums updated", user })  
+  } catch (error) {
+    return res.status(400).send({ message: "Failed to update user yums" })
+  }
+}
+
 const login = async (req, res) => {
   const submittedEmail = req.body.email
   const submittedPassword = req.body.password
@@ -71,4 +84,4 @@ const register = async (req, res) => {
   }
 }
 
-module.exports = { getUsers, getUser, login, register }
+module.exports = { getUsers, getUser, addYumToUser, login, register }

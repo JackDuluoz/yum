@@ -3,6 +3,8 @@ import { GoogleMap, MapMarker, MapInfoWindow, MapAnchorPoint } from '@angular/go
 import { FilterService } from 'src/app/services/filter.service';
 import { MapuiService } from 'src/app/services/mapui.service';
 import { Subscription } from 'rxjs';
+import { DatabaseService } from 'src/app/services/database.service';
+import { ReviewsService } from 'src/app/services/reviews.service';
 
 interface MarkerProperties {
   position: {
@@ -26,13 +28,20 @@ export class MapComponent implements OnInit {
     phone: String,
     rating: Number,
     totalRatings: Number,
-    reviews: Array,
-    photo: String
+    reviews: [{
+      rating: Number,
+      relative_time_description: String,
+      text: String
+    }],
+    photo: String,
+    types: ['']
   }
   showFilter: boolean = false;
   showMap: boolean = true;
+  showReviews: boolean = false;
   mapView: Subscription;
   filter: Subscription;
+  reviews: Subscription;
 
   mapOptions: google.maps.MapOptions = {
     zoom: 12,
@@ -45,8 +54,6 @@ export class MapComponent implements OnInit {
   infoWindowOptions: google.maps.InfoWindowOptions = {
     position: { lat: 49.28, lng: -123.12 }
   }
-
-  infoWindowContent: any
 
   markers: MarkerProperties[] = [
     // {
@@ -61,14 +68,16 @@ export class MapComponent implements OnInit {
     // },
   ];
 
-  constructor(private filterService: FilterService, private mapuiService: MapuiService) {
+  constructor(private databaseService: DatabaseService, private filterService: FilterService, private mapuiService: MapuiService, private reviewsService: ReviewsService) {
     this.mapView = this.mapuiService
       .onToggle()
       .subscribe((value) => (this.showMap = value));
-
     this.filter = this.filterService
       .onToggle()
       .subscribe((value) => (this.showFilter = value));
+    this.reviews = this.reviewsService
+      .onToggle()
+      .subscribe((value) => (this.showReviews = value));
   }
 
   ngOnInit() { }
@@ -91,6 +100,27 @@ export class MapComponent implements OnInit {
     this.infoWindow.close()
   }
 
+  toggleReviews() {
+    this.reviewsService.toggleReviews()
+  }
+
+  onAdd() {
+    console.log("I want to eat here!")
+    const id = sessionStorage.getItem('userId')
+    if (id === null) {
+      return
+    }
+    console.log(id)
+    this.databaseService.addYumToUser(id, this.infoContent ).subscribe(
+      (response) => {
+        console.log(response)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
+  }
+
   click(event: google.maps.MapMouseEvent | google.maps.IconMouseEvent) {
     event.stop()
     let clickInfo: any = event
@@ -105,7 +135,7 @@ export class MapComponent implements OnInit {
     const service = new google.maps.places.PlacesService(map);
     const request = {
       placeId: clickInfo.placeId,
-      fields: ['name', 'formatted_address', 'formatted_phone_number', 'rating', 'reviews', 'photo', 'geometry', 'user_ratings_total', 'type']
+      fields: ['name', 'editorial_summary', 'formatted_address', 'formatted_phone_number', 'rating', 'reviews', 'photo', 'geometry', 'user_ratings_total', 'type']
     };
     const callback = (place: any, status: any) => {
       if (place && status === google.maps.places.PlacesServiceStatus.OK) {
@@ -120,7 +150,8 @@ export class MapComponent implements OnInit {
           rating: place.rating,
           totalRatings: place.user_ratings_total,
           reviews: place.reviews,
-          photo: place.photos[0].getUrl()
+          photo: place.photos[0].getUrl(),
+          types: place.types
         }
         this.infoWindow.open()
         // this.markers.push({

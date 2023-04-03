@@ -30,4 +30,8 @@ export class DatabaseService {
   register(registration: object): Observable<any> {
     return this.http.post('http://localhost:3000/users/register', registration)
   }
+
+  addYumToUser(id: string, yum: object): Observable<any> {
+    return this.http.put(`http://localhost:3000/users/${id}`, yum)
+  }
 }

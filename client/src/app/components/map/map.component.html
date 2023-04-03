@@ -20,17 +20,37 @@
   >
         </map-marker>
         <map-info-window [options]="infoWindowOptions">
-          <img [src]="infoContent.photo" alt="photo">
+          <div *ngIf="!showReviews">
+            <img [src]="infoContent.photo" alt="photo">
             <div class="info-window">
-                <div class="info-window-name">{{infoContent.name}}</div>
-                <div class="info-window-rating">{{infoContent.rating}} ({{infoContent.totalRatings}})</div>
-              <!-- <span>{{infoContent.address}}</span> -->
-              <!-- <span>{{infoContent.phone}}</span> -->
+              <div class="info-window-name">
+                <button id="name" (click)="toggleReviews()">
+                  {{infoContent.name}}
+                </button>
+              </div>
+              <div class="info-window-rating">
+                <div id="rating">⭐{{infoContent.rating}}</div>
+                <div id="total-ratings">({{infoContent.totalRatings}})</div>
+              </div>
               <div class="info-window-buttons">
-                <button>Add</button>
-                <button (click)="closeInfoWindow()">Close</button>
+                <button class="add" *ngIf="infoContent.types.includes('restaurant')" (click)="onAdd()">Add</button>
+                <button class="close" id="close" (click)="closeInfoWindow()">Close</button>
               </div>
             </div>
+          </div>
+          <div *ngIf="showReviews">
+            <div class="info-reviews">
+              <button id="back" (click)="toggleReviews()">
+                <mat-icon>arrow_back_ios</mat-icon>
+              </button>
+              <div id="info-reviews-address">{{infoContent.address}}</div>
+              <div id="info-reviews-phone">{{infoContent.phone}}</div>
+              <div id="info-review" *ngFor="let review of infoContent.reviews">
+                <div id="info-reviews-rating">⭐{{review.rating}} ({{review.relative_time_description}})</div>
+                <div id="info-reviews-text">{{review.text}}</div>
+              </div>
+            </div>
+          </div>
         </map-info-window>
     </google-map>
     </mat-sidenav-content>
