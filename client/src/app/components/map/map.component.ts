@@ -33,7 +33,7 @@ export class MapComponent implements OnInit {
       relative_time_description: String,
       text: String
     }],
-    photo: String,
+    photo: '',
     types: ['']
   }
   showFilter: boolean = false;
