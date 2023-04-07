@@ -3,8 +3,8 @@ import { Router } from '@angular/router'
 import { DatabaseService } from 'src/app/services/database.service';
 
 interface Yum {
-  name: string;
-  type: string;
+  name: String;
+  city: String;
 }
 
 @Component({
@@ -43,10 +43,10 @@ export class MyyumsComponent implements OnInit {
     console.log("Clicked Remove")
     const id = sessionStorage.getItem('userId')!
     const name = event.target.attributes.name.value
-    const type = event.target.attributes.type.value
+    const city = event.target.attributes.city.value
     const yum = {
       "name": name,
-      "type": type
+      "city": city
     }
     // console.log(name)
     // console.log(type)

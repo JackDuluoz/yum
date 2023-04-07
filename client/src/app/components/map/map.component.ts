@@ -25,6 +25,7 @@ export class MapComponent implements OnInit {
   infoContent = {
     name: String,
     address: String,
+    city: String,
     phone: String,
     rating: Number,
     totalRatings: Number,
@@ -133,7 +134,7 @@ export class MapComponent implements OnInit {
     const service = new google.maps.places.PlacesService(map);
     const request = {
       placeId: clickInfo.placeId,
-      fields: ['name', 'editorial_summary', 'formatted_address', 'formatted_phone_number', 'rating', 'reviews', 'photo', 'geometry', 'user_ratings_total', 'type']
+      fields: ['name', 'address_components', 'formatted_address', 'formatted_phone_number', 'rating', 'reviews', 'photo', 'geometry', 'user_ratings_total', 'type']
     };
     const callback = (place: any, status: any) => {
       if (place && status === google.maps.places.PlacesServiceStatus.OK) {
@@ -141,9 +142,14 @@ export class MapComponent implements OnInit {
         // const latLng = place.geometry.location.toJSON()
         // this.infoWindowOptions = { position: latLng }
         // console.log(place.photos[0].getUrl())
+        let locality = place.address_components.filter((adr: any) => {
+          return adr.types.includes('locality')
+        })
+        console.log(locality)
         this.infoContent = {
           name: place.name,
           address: place.formatted_address,
+          city: locality[0].long_name,
           phone: place.formatted_phone_number,
           rating: place.rating,
           totalRatings: place.user_ratings_total,
@@ -151,6 +157,7 @@ export class MapComponent implements OnInit {
           photo: place.photos[0].getUrl(),
           types: place.types
         }
+        console.log(this.infoContent)
         this.infoWindow.open()
         // this.markers.push({
         //   position: {

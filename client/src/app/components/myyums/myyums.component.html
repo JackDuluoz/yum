@@ -9,11 +9,11 @@
       <a id="yum-name" href="/">{{yum.name}}</a>
     </div>
     <div class="yum-content">
-      <span>Vancouver</span>
+      <span>{{yum.city}}</span>
     </div>
     <div class="yum-actions">
       <button class="yum-button" (click)="onReview()">Review</button>
-      <button class="yum-button" id="yum-remove" (click)="onRemove($event)" [attr.name]="yum.name" [attr.type]="yum.type">Remove</button>
+      <button class="yum-button" id="yum-remove" (click)="onRemove($event)" [attr.name]="yum.name" [attr.city]="yum.city">Remove</button>
     </div>
   </div>
 </div>

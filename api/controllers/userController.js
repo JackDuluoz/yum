@@ -22,10 +22,8 @@ const getUser = async (req, res) => {
 const addYumToUser = async (req, res) => {
   const id = req.params.id
   const yum = req.body
-  console.log(id)
-  console.log(yum)
   try {
-    const user = await User.updateOne({ _id: id }, { $push: { yums: { name: yum.name, type: "cheese" } } })
+    const user = await User.updateOne({ _id: id }, { $push: { yums: { name: yum.name, city: yum.city } } })
     return res.status(200).send({ message: "User yums updated", user })  
   } catch (error) {
     return res.status(400).send({ message: "Failed to update user yums" })
@@ -35,8 +33,6 @@ const addYumToUser = async (req, res) => {
 const removeYumFromUser = async (req, res) => {
   const id = req.params.id
   const yum = req.body
-  console.log(id)
-  console.log(yum)
   try {
     const user = await User.updateOne({ _id: id }, { $pull: { yums: yum } })
     return res.status(200).send({ message: "Yum removed", user }) 
