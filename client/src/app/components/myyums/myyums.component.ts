@@ -5,6 +5,8 @@ import { DatabaseService } from 'src/app/services/database.service';
 interface Yum {
   name: String;
   city: String;
+  country: String;
+  photo: String;
 }
 
 @Component({
@@ -44,9 +46,13 @@ export class MyyumsComponent implements OnInit {
     const id = sessionStorage.getItem('userId')!
     const name = event.target.attributes.name.value
     const city = event.target.attributes.city.value
+    const country = event.target.attributes.country.value
+    const photo = event.target.attributes.photo.value
     const yum = {
       "name": name,
-      "city": city
+      "city": city,
+      "country": country,
+      "photo": photo
     }
     // console.log(name)
     // console.log(type)

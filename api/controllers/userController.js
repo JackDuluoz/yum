@@ -23,7 +23,16 @@ const addYumToUser = async (req, res) => {
   const id = req.params.id
   const yum = req.body
   try {
-    const user = await User.updateOne({ _id: id }, { $push: { yums: { name: yum.name, city: yum.city } } })
+    const user = await User.updateOne({ _id: id }, {
+      $push: {
+        yums: {
+          name: yum.name,
+          city: yum.city,
+          country: yum.country,
+          photo: yum.photo
+        }
+      }
+    })
     return res.status(200).send({ message: "User yums updated", user })  
   } catch (error) {
     return res.status(400).send({ message: "Failed to update user yums" })

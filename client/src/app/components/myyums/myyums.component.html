@@ -2,18 +2,18 @@
 
 <div class="yum" *ngFor="let yum of yums">
   <div class="yum-photo">
-    <img src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=768,574" alt="photo" >
+    <img [src]="yum.photo" alt="photo" >
   </div>
   <div class="yum-info">
     <div class="yum-header">
       <a id="yum-name" href="/">{{yum.name}}</a>
     </div>
     <div class="yum-content">
-      <span>{{yum.city}}</span>
+      <span>{{yum.city}}, {{yum.country}}</span>
     </div>
     <div class="yum-actions">
       <button class="yum-button" (click)="onReview()">Review</button>
-      <button class="yum-button" id="yum-remove" (click)="onRemove($event)" [attr.name]="yum.name" [attr.city]="yum.city">Remove</button>
+      <button class="yum-button" id="yum-remove" (click)="onRemove($event)" [attr.name]="yum.name" [attr.city]="yum.city" [attr.country]="yum.country" [attr.photo]="yum.photo">Remove</button>
     </div>
   </div>
 </div>

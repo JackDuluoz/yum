@@ -26,6 +26,7 @@ export class MapComponent implements OnInit {
     name: String,
     address: String,
     city: String,
+    country: String,
     phone: String,
     rating: Number,
     totalRatings: Number,
@@ -145,11 +146,15 @@ export class MapComponent implements OnInit {
         let locality = place.address_components.filter((adr: any) => {
           return adr.types.includes('locality')
         })
-        console.log(locality)
+        let country = place.address_components.filter((adr: any) => {
+          return adr.types.includes('country')
+        })
+        console.log(locality[0].long_name)
         this.infoContent = {
           name: place.name,
           address: place.formatted_address,
           city: locality[0].long_name,
+          country: country[0].short_name,
           phone: place.formatted_phone_number,
           rating: place.rating,
           totalRatings: place.user_ratings_total,
@@ -157,7 +162,6 @@ export class MapComponent implements OnInit {
           photo: place.photos[0].getUrl(),
           types: place.types
         }
-        console.log(this.infoContent)
         this.infoWindow.open()
         // this.markers.push({
         //   position: {
