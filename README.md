@@ -1,4 +1,6 @@
-### Wargame-Event-App
+### GoodFood
+
+An app for finding restaurants you'd like to eat at and then reviewing them.
 
 # Setup
 
